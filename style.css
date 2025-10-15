@@ -213,6 +213,12 @@ header .main-nav ul {
 }
 
 header .main-nav ul li {
+    display: flex;
+    align-items: center;
+}
+
+header .main-nav ul li .nav-link {
+    text-decoration: none;
     cursor: pointer;
     padding: 12px 20px;
     border-radius: var(--border-radius-sm);
@@ -222,16 +228,17 @@ header .main-nav ul li {
     color: var(--white);
     border: 2px solid transparent;
     white-space: nowrap;
+    display: block;
 }
 
-header .main-nav ul li:hover {
+header .main-nav ul li .nav-link:hover {
     background-color: rgba(255, 255, 255, 0.2);
     color: var(--white);
     border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-1px);
 }
 
-header .main-nav ul li.active {
+header .main-nav ul li .nav-link.active {
     background-color: rgba(255, 255, 255, 0.3);
     color: var(--white);
     border-color: rgba(255, 255, 255, 0.5);
@@ -337,6 +344,12 @@ header .main-nav ul li.active {
     }
     
     header .main-nav ul li {
+        flex: 1;
+        min-width: 0;
+        margin: 0;
+    }
+
+    header .main-nav ul li .nav-link {
         background-color: rgba(255, 255, 255, 0.1);
         border: 2px solid transparent;
         border-radius: var(--border-radius-sm);
@@ -345,19 +358,18 @@ header .main-nav ul li.active {
         text-align: center;
         white-space: nowrap;
         transition: all 0.3s ease;
-        margin: 0;
         color: var(--white);
-        flex: 1;
-        min-width: 0;
+        text-decoration: none;
+        display: block;
     }
     
-    header .main-nav ul li:hover {
+    header .main-nav ul li .nav-link:hover {
         background-color: rgba(255, 255, 255, 0.2);
         transform: translateY(-1px);
         border-color: rgba(255, 255, 255, 0.3);
     }
     
-    header .main-nav ul li.active {
+    header .main-nav ul li .nav-link.active {
         background-color: rgba(255, 255, 255, 0.3);
         border-color: rgba(255, 255, 255, 0.5);
     }
@@ -400,11 +412,14 @@ header .main-nav ul li.active {
     }
     
     header .main-nav ul li {
-        padding: 6px 12px;
-        font-size: 13px;
         flex: none;
         min-width: auto;
         width: 120px;
+    }
+
+    header .main-nav ul li .nav-link {
+        padding: 6px 12px;
+        font-size: 13px;
     }
 }
 
@@ -445,11 +460,14 @@ header .main-nav ul li.active {
     }
     
     header .main-nav ul li {
-        padding: 5px 10px;
-        font-size: 12px;
         flex: none;
         min-width: auto;
         width: 120px;
+    }
+
+    header .main-nav ul li .nav-link {
+        padding: 5px 10px;
+        font-size: 12px;
     }
 }
 
@@ -490,11 +508,14 @@ header .main-nav ul li.active {
     }
     
     header .main-nav ul li {
-        padding: 4px 8px;
-        font-size: 11px;
         flex: none;
         min-width: auto;
         width: 120px;
+    }
+
+    header .main-nav ul li .nav-link {
+        padding: 4px 8px;
+        font-size: 11px;
     }
 }
 
@@ -987,7 +1008,20 @@ table tr:last-child td {
     font-weight: 600;
 }
 
-/* タブ切り替え */
+/* ページコンテンツ */
+.page-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.page-content.active {
+    display: block;
+    animation: fadeInTab 0.6s ease-out forwards;
+}
+
+/* タブ切り替え（後方互換性のため残す） */
 .tab-content {
     display: none;
     opacity: 0;
@@ -1011,6 +1045,7 @@ table tr:last-child td {
     }
 }
 
+.page-content h2,
 .tab-content h2 {
     padding-left: 30px;
     font-size: 24px;
@@ -1021,6 +1056,7 @@ table tr:last-child td {
     display: inline-block;
 }
 
+.page-content h2:after,
 .tab-content h2:after {
     content: '';
     position: absolute;
@@ -1033,6 +1069,8 @@ table tr:last-child td {
     transform: translateX(-50%);
 }
 
+.page-content p,
+.page-content li,
 .tab-content p,
 .tab-content li {
     padding-left: 30px;
@@ -2611,5 +2649,305 @@ footer {
     footer {
         font-size: clamp(10px, 1.8vw, 12px) !important;
         padding: 12px 8px !important;
+    }
+}
+
+/* =========================================
+   新しいホームページ用のスタイル
+   ========================================= */
+
+/* 診療時間テーブル */
+.schedule-section {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 251, 0.9) 100%);
+    padding: 2rem;
+    margin: 2rem 1rem;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(102, 205, 170, 0.1);
+}
+
+.schedule-section h2 {
+    text-align: center;
+    color: var(--text-accent);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.schedule-table th {
+    background: var(--gradient-primary);
+    color: var(--white);
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.schedule-table td {
+    padding: 0.8rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(102, 205, 170, 0.1);
+}
+
+.schedule-table th:first-child,
+.schedule-table td:first-child {
+    font-weight: 600;
+    background: rgba(102, 205, 170, 0.05);
+}
+
+.schedule-table .closed {
+    color: #999;
+    font-style: italic;
+}
+
+.schedule-note {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.schedule-note p {
+    margin: 0.2rem 0;
+    padding-left: 0;
+}
+
+/* お知らせセクション */
+.notice-section {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 251, 0.9) 100%);
+    padding: 2rem;
+    margin: 2rem 1rem;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(102, 205, 170, 0.1);
+}
+
+.notice-section h2 {
+    text-align: center;
+    color: var(--text-accent);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.notice-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--white);
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--primary-color);
+}
+
+.notice-date {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    min-width: 80px;
+}
+
+.notice-content p {
+    margin: 0;
+    padding-left: 0;
+    line-height: 1.6;
+}
+
+/* 特徴セクション */
+.features-section {
+    padding: 2rem 1rem;
+    margin: 2rem 0;
+}
+
+.features-section h2 {
+    text-align: center;
+    color: var(--text-accent);
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 251, 0.9) 100%);
+    padding: 1.5rem;
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(102, 205, 170, 0.1);
+    transition: all var(--transition-fast);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    color: var(--text-accent);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.feature-card p {
+    padding-left: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 対応症状セクション */
+.conditions-section {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 251, 0.9) 100%);
+    padding: 2rem;
+    margin: 2rem 1rem;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(102, 205, 170, 0.1);
+}
+
+.conditions-section h2 {
+    text-align: center;
+    color: var(--text-accent);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.condition-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: var(--white);
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+}
+
+.condition-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.condition-icon {
+    font-size: 1.5rem;
+}
+
+.condition-item span {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.conditions-cta {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(102, 205, 170, 0.2);
+}
+
+.conditions-cta p {
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    padding-left: 0;
+}
+
+.cta-button {
+    display: inline-block;
+    background: var(--gradient-primary);
+    color: var(--white);
+    padding: 0.8rem 2rem;
+    border-radius: var(--border-radius-xl);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    background: var(--gradient-dark);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .schedule-section,
+    .notice-section,
+    .conditions-section {
+        padding: 1.5rem;
+        margin: 1.5rem 0.5rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .conditions-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    
+    .schedule-table th,
+    .schedule-table td {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .schedule-section h2,
+    .notice-section h2,
+    .conditions-section h2 {
+        font-size: 1.3rem;
+    }
+    
+    .features-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .feature-card {
+        padding: 1rem;
+    }
+    
+    .schedule-table th,
+    .schedule-table td {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.8rem;
+    }
+    
+    .conditions-cta {
+        padding-top: 1.5rem;
     }
 }

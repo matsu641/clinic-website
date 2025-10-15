@@ -1,50 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // タブ切り替え
-    const tabs = document.querySelectorAll(".tab");
-    const contents = document.querySelectorAll(".tab-content");
-
-    tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-            // すべてのタブから active クラスを外す
-            tabs.forEach(t => {
-                t.classList.remove("active");
-                t.setAttribute("aria-selected", "false");
-            });
-            tab.classList.add("active");
-            tab.setAttribute("aria-selected", "true");
-
-            // すべてのコンテンツから active クラスを外す
-            contents.forEach(content => {
-                content.classList.remove("active");
-                // フェードアウト効果のためのクラスを追加
-                content.classList.add("fade-out");
-            });
-
-            // data-tab の値に対応する要素を取得
-            const targetContent = document.getElementById(tab.dataset.tab);
-            if (targetContent) {
-                // 少し遅延してからフェードイン効果を適用
-                setTimeout(() => {
-                    // フェードアウトクラスを削除
-                    contents.forEach(content => content.classList.remove("fade-out"));
-                    // ターゲットコンテンツにactiveクラスを追加
-                    targetContent.classList.add("active");
-                    // フェードイン効果を確実に適用
-                    targetContent.classList.add("fade-in-active");
-                    
-                    // フェードイン完了後にクラスをリセット
-                    setTimeout(() => {
-                        targetContent.classList.remove("fade-in-active");
-                    }, 300);
-                }, 50);
-            } else {
-                console.error(`Tab content with id "${tab.dataset.tab}" not found.`);
-            }
-        });
-    });
-
-    // Swiper.jsの初期化
-    const swiper = new Swiper('.swiper-container', {
+    // Swiper.jsの初期化（ホームページのみ）
+    const swiperContainer = document.querySelector('.swiper-container');
+    if (swiperContainer) {
+        const swiper = new Swiper('.swiper-container', {
         loop: true, // スライドをループ
         autoplay: {
             delay: 5000, // 5秒ごとにスライド切り替え
@@ -58,7 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
             nextEl: '.swiper-button-next', // 次のスライドボタン
             prevEl: '.swiper-button-prev', // 前のスライドボタン
         },
-    });
+        });
+    }
 
     // スクロール時のパララックス効果
     function handleScroll() {
@@ -177,5 +136,4 @@ document.addEventListener("DOMContentLoaded", () => {
             loader.remove();
         }, 500);
     }, 2000);
-}
-);
+});
