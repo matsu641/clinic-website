@@ -5,6 +5,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     tabs.forEach(tab => {
         tab.addEventListener("click", () => {
+            // Google Analytics 仮想ページビュー送信
+            const tabName = tab.dataset.tab;
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_view', {
+                    page_title: getPageTitle(tabName),
+                    page_location: window.location.origin + '/' + tabName,
+                    page_path: '/' + tabName
+                });
+            }
+            
             // すべてのタブから active クラスを外す
             tabs.forEach(t => {
                 t.classList.remove("active");
@@ -42,6 +52,20 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    // 電話ボタンのクリック計測
+    const contactButton = document.querySelector('.contact-button');
+    if (contactButton) {
+        contactButton.addEventListener('click', function() {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'contact', {
+                    event_category: 'engagement',
+                    event_label: 'phone_call',
+                    value: 1
+                });
+            }
+        });
+    }
 
     // Swiper.jsの初期化
     const swiper = new Swiper('.swiper-container', {
@@ -179,3 +203,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2000);
 }
 );
+
+// ページタイトルのマッピング関数
+function getPageTitle(tabName) {
+    const titles = {
+        'home': 'ホーム | くわばら整形外科',
+        'about': '当院について | くわばら整形外科',
+        'symptoms': '診療案内 | くわばら整形外科',
+        'rihab': 'リハビリ治療 | くわばら整形外科',
+        'access': 'アクセス | くわばら整形外科'
+    };
+    return titles[tabName] || 'くわばら整形外科';
+}
