@@ -2563,8 +2563,8 @@ footer {
     
     /* 院長写真 */
     .director img {
-        max-width: 150px !important;
-        width: 70% !important;
+        max-width: 200px !important;
+        width: 85% !important;
     }
     
     .director-education {
