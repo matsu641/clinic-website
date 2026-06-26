@@ -96,7 +96,7 @@ export default function RehabPage() {
                 alt={device.title}
                 width={420}
                 height={260}
-                className="h-48 w-full rounded-[8px] object-cover"
+                className="h-56 w-full rounded-[8px] bg-white object-contain sm:h-60"
               />
               <p className="mt-4 text-sm font-medium leading-7 text-slate-700">
                 {device.body}
