@@ -10,6 +10,9 @@ const navItems = [
   { href: "/access", label: "アクセス" },
 ];
 
+const mobilePrimaryNavItems = navItems.slice(0, 3);
+const mobileSecondaryNavItems = navItems.slice(3);
+
 export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-clinic-100 bg-white/95 shadow-sm backdrop-blur">
@@ -59,13 +62,32 @@ export function Header() {
         aria-label="モバイルナビゲーション"
         className="border-t border-clinic-50 bg-white lg:hidden"
       >
-        <ul className="container-pad flex gap-5 overflow-x-auto py-3 text-sm font-bold text-slate-700">
-          {navItems.map((item) => (
-            <li key={item.href} className="shrink-0">
-              <Link href={item.href}>{item.label}</Link>
-            </li>
-          ))}
-        </ul>
+        <div className="container-pad py-2.5 text-sm font-bold text-slate-700">
+          <ul className="grid grid-cols-3 gap-2">
+            {mobilePrimaryNavItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="flex min-h-10 items-center justify-center rounded-[8px] px-2 text-center leading-snug transition hover:bg-clinic-50 hover:text-clinic-700"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <ul className="mt-2 grid grid-cols-2 gap-2">
+            {mobileSecondaryNavItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="flex min-h-10 items-center justify-center rounded-[8px] px-2 text-center leading-snug transition hover:bg-clinic-50 hover:text-clinic-700"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </nav>
     </header>
   );

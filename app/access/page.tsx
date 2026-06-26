@@ -14,9 +14,10 @@ export default function AccessPage() {
           className="object-cover opacity-75"
           sizes="100vw"
         />
+        <div className="pointer-events-none absolute inset-0 bg-white/10" />
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/88 to-white/20" />
-        <div className="container-pad relative min-h-[500px] py-24">
-          <h1 className="mb-8 text-6xl font-semibold text-clinic-700">
+        <div className="container-pad relative min-h-[360px] py-16 sm:min-h-[500px] sm:py-24">
+          <h1 className="mb-8 text-4xl font-semibold leading-tight text-clinic-700 sm:text-6xl">
             アクセス
           </h1>
         </div>

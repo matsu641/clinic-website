@@ -24,15 +24,16 @@ export default function HomePage() {
           className="hero-bg-image object-cover object-center opacity-75"
           sizes="100vw"
         />
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-white/10" />
         <div className="hero-container container-pad relative min-h-[610px] py-20">
           <div className="hero-copy max-w-2xl pt-12">
-            <p className="mb-4 text-3xl font-medium leading-tight text-slate-800 sm:text-4xl md:text-5xl">
+            <p className="mb-4 text-2xl font-medium leading-tight text-slate-800 sm:text-4xl md:text-5xl">
               患者さんに寄り添った
             </p>
-            <h1 className="mb-6 text-4xl font-semibold leading-tight text-clinic-600 sm:text-5xl md:text-7xl">
+            <h1 className="mb-6 text-3xl font-semibold leading-tight text-clinic-600 sm:text-5xl md:text-7xl">
               回復プログラム
             </h1>
-            <p className="text-lg font-bold text-slate-700 sm:text-xl md:text-2xl">
+            <p className="text-base font-bold leading-8 text-slate-700 sm:text-xl md:text-2xl">
               いつでもお気軽にご相談ください
             </p>
           </div>
@@ -130,7 +131,7 @@ export default function HomePage() {
 
       <section className="container-pad leaf-bg py-12">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl font-semibold text-slate-700">
+          <h2 className="text-2xl font-semibold leading-snug text-slate-700 sm:text-3xl">
             当院を初めて受診される方へ
           </h2>
         </div>
