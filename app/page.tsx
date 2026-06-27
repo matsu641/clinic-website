@@ -6,12 +6,18 @@ import {
   HeartHandshake,
   Home,
   Leaf,
+  Pin,
   Stethoscope,
 } from "lucide-react";
 import { ContactBand } from "@/components/ContactBand";
 import { departments, hours, requests, visitCards } from "@/lib/content";
+import { getNewsItems } from "@/lib/news";
 
-export default function HomePage() {
+export const revalidate = 300;
+
+export default async function HomePage() {
+  const newsItems = await getNewsItems();
+
   return (
     <main>
       <section className="hero-home relative overflow-hidden bg-white">
@@ -68,9 +74,40 @@ export default function HomePage() {
             <h2 className="text-2xl font-bold">お知らせ</h2>
           </div>
           <div className="h-px bg-clinic-300" />
-          <p className="mt-8 text-sm font-medium leading-8 text-slate-700">
-            GW期間中は休診とさせていただいております。2026年5月8日（金）より診療を再開いたします。
-          </p>
+          {newsItems.length > 0 ? (
+            <div className="mt-7 space-y-5">
+              {newsItems.map((item) => (
+                <section
+                  key={`${item.date}-${item.title}`}
+                  className="border-b border-clinic-100 pb-5 last:border-b-0 last:pb-0"
+                >
+                  <div className="mb-2 flex flex-wrap items-center gap-2">
+                    {item.date ? (
+                      <time className="text-xs font-bold text-clinic-500" dateTime={item.date}>
+                        {item.date}
+                      </time>
+                    ) : null}
+                    {item.pinned ? (
+                      <span className="inline-flex items-center gap-1 rounded-[8px] bg-clinic-50 px-2 py-1 text-[11px] font-bold text-clinic-600">
+                        <Pin className="h-3 w-3" aria-hidden="true" />
+                        固定
+                      </span>
+                    ) : null}
+                  </div>
+                  <h3 className="text-base font-bold leading-7 text-slate-800">{item.title}</h3>
+                  {item.body ? (
+                    <p className="mt-2 whitespace-pre-line text-sm font-medium leading-8 text-slate-700">
+                      {item.body}
+                    </p>
+                  ) : null}
+                </section>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-8 text-sm font-medium leading-8 text-slate-700">
+              現在、掲載中のお知らせはありません。
+            </p>
+          )}
         </article>
 
         <article className="soft-card p-7">
