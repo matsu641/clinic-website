@@ -66,7 +66,7 @@ export async function getNewsItems(): Promise<NewsItem[]> {
 
   try {
     const response = await fetch(normalizeGoogleCsvUrl(csvUrl), {
-      next: { revalidate: 300 },
+      cache: "no-store",
     });
 
     if (!response.ok) {

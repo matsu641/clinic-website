@@ -13,7 +13,7 @@ import { ContactBand } from "@/components/ContactBand";
 import { departments, hours, requests, visitCards } from "@/lib/content";
 import { getNewsItems } from "@/lib/news";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const newsItems = await getNewsItems();
