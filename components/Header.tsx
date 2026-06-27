@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Phone } from "lucide-react";
+import { Globe2, Phone } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "ホーム" },
@@ -50,13 +50,25 @@ export function Header() {
           </ul>
         </nav>
 
-        <a
-          href="tel:+81-279-25-8855"
-          className="hidden items-center gap-2 rounded-[8px] bg-clinic-600 px-4 py-3 text-sm font-bold text-white shadow-md shadow-clinic-600/20 transition hover:bg-clinic-700 sm:flex"
-        >
-          <Phone className="h-4 w-4" aria-hidden="true" />
-          <span>TEL: 0279-25-8855</span>
-        </a>
+        <div className="hidden items-center gap-2 sm:flex">
+          <a
+            href="tel:+81-279-25-8855"
+            className="inline-flex items-center gap-2 rounded-[8px] bg-clinic-600 px-4 py-3 text-sm font-bold text-white shadow-md shadow-clinic-600/20 transition hover:bg-clinic-700"
+          >
+            <Phone className="h-4 w-4" aria-hidden="true" />
+            <span>TEL: 0279-25-8855</span>
+          </a>
+          <a
+            href="https://translate.google.com/translate?sl=ja&tl=en&u=https%3A%2F%2Fkuwabara-ortho.jp%2F"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="English translated page"
+            className="inline-flex min-h-11 items-center gap-2 rounded-[8px] border border-clinic-200 bg-white px-3 py-2 text-sm font-bold text-clinic-700 shadow-sm transition hover:border-clinic-300 hover:bg-clinic-50"
+          >
+            <Globe2 className="h-4 w-4" aria-hidden="true" />
+            <span>English</span>
+          </a>
+        </div>
       </div>
       <nav
         aria-label="モバイルナビゲーション"
